@@ -9,7 +9,7 @@ CD in your resources/scripts folder
 
 Clone the repository
 
-git clone https://github.com/pepe033/pepe_celowniki.git pepe_celowniki
+git clone https://github.com/pepe033/pepe_celowniki.git pepe_sights
 
 Import pepe_celowniki.sql in your database
 
