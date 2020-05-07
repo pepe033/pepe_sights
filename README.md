@@ -17,4 +17,4 @@ Add this in your server.cfg :
 
 start pepe_celowniki
 
-Add a place where people can buy these items
+Add a place where people can buy this item for ex. to a blackshop  
