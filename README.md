@@ -18,3 +18,6 @@ Add this in your server.cfg :
 start pepe_sights
 
 Add a place where people can buy this item for ex. to a blackshop  
+
+
+if you have any questions message me on discord : pepe.#8653
