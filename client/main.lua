@@ -1,84 +1,61 @@
-ESX = nil
-local IsDead = false
+local ESX = nil
+local weapons = {
+    [GetHashKey('WEAPON_SMG')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_02')},
+    [GetHashKey('WEAPON_ASSAULTSMG')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO')},
+    [GetHashKey('WEAPON_ASSAULTRIFLE')] = { celownik = GetHashKey('	COMPONENT_AT_SCOPE_MACRO')},
+    [GetHashKey('WEAPON_CARBINERIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MEDIUM')},
+    [GetHashKey('WEAPON_ADVANCEDRIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_SMALL')},
+    [GetHashKey('WEAPON_SPECIALCARBINE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MEDIUM')},
+    [GetHashKey('WEAPON_BULLPUPRIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_SMALL')},
+    [GetHashKey('WEAPON_COMBATPDW')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_SMALL')}
+}
 
+-- ESX
 Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
+  while ESX == nil do
+      TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+      Citizen.Wait(0)
+  end
 end)
 
+-- ESX, playerloaded
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
-  PlayerData = xPlayer 
+  PlayerData = xPlayer
 end)
 
-local used = 0
-
-RegisterNetEvent('pepe_celowniki:celownik')
-AddEventHandler('pepe_celowniki:celownik', function(duration)
-	local inventory = ESX.GetPlayerData().inventory
-	local celownik = 0
-
-		for i=1, #inventory, 1 do
-		  if inventory[i].name == 'celownik' then
-			celownik = inventory[i].count
-		  end
-		end
-
-local ped = PlayerPedId()
-local currentWeaponHash = GetSelectedPedWeapon(ped)
-
-		if used < celownik then
-
-		  	if currentWeaponHash == GetHashKey("WEAPON_SMG") then
-		  		 GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_SMG"), GetHashKey("COMPONENT_AT_SCOPE_MACRO_02"))  
-		  		 ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-		  			used = used + 1
-                
-                elseif currentWeaponHash == GetHashKey("WEAPON_ASSAULTRIFLE") then
-                    GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_ASSAULTRIFLE"), GetHashKey("COMPONENT_AT_SCOPE_MACRO"))  
-                    ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-                        used = used + 1
-
-                elseif currentWeaponHash == GetHashKey("WEAPON_CARBINERIFLE") then
-                    GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_CARBINERIFLE"), GetHashKey("COMPONENT_AT_SCOPE_MEDIUM"))  
-                    ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-                        used = used + 1
-
-                elseif currentWeaponHash == GetHashKey("WEAPON_ADVANCEDRIFLE") then
-                    GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_ADVANCEDRIFLE"), GetHashKey("COMPONENT_AT_SCOPE_SMALL"))  
-                    ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-                        used = used + 1
-
-                elseif currentWeaponHash == GetHashKey("WEAPON_SPECIALCARBINE") then
-                    GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_SPECIALCARBINE"), GetHashKey("COMPONENT_AT_SCOPE_MEDIUM"))  
-                    ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-                        used = used + 1
-
-                elseif currentWeaponHash == GetHashKey("WEAPON_BULLPUPRIFLE") then
-                    GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_BULLPUPRIFLE"), GetHashKey("COMPONENT_AT_SCOPE_SMALL"))  
-                    ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-                        used = used + 1
-
-                elseif currentWeaponHash == GetHashKey("WEAPON_COMBATPDW") then
-                    GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_COMBATPDW"), GetHashKey("COMPONENT_AT_SCOPE_SMALL"))  
-                    ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-                        used = used + 1
-
-                elseif currentWeaponHash == GetHashKey("WEAPON_ASSAULTSMG") then
-                    GiveWeaponComponentToPed(GetPlayerPed(-1), GetHashKey("WEAPON_ASSAULTSMG"), GetHashKey("COMPONENT_AT_SCOPE_MACRO"))  
-                    ESX.ShowNotification(("~y~Zalozono celownik do broni.")) 
-                        used = used + 1 	
-
-		  	else 
-		  		  ESX.ShowNotification(("20"))	
-			end
-			else
-					  		 ESX.ShowNotification(("~p~Uzyles juz celownik.~w~/~r~Lub nie pasuje do tej broni.")) 
-		end
+-- Use item
+RegisterNetEvent('pepe_celowniki:use')
+AddEventHandler('pepe_celowniki:use', function( type )
+  if weapons[GetSelectedPedWeapon(PlayerPedId())] and weapons[GetSelectedPedWeapon(PlayerPedId())][type] then
+      if not HasPedGotWeaponComponent(GetPlayerPed(-1), GetSelectedPedWeapon(PlayerPedId()), weapons[GetSelectedPedWeapon(PlayerPedId())][type]) then
+          GiveWeaponComponentToPed(GetPlayerPed(-1), GetSelectedPedWeapon(PlayerPedId()), weapons[GetSelectedPedWeapon(PlayerPedId())][type])  
+          ESX.ShowNotification(string.format('%s %s', "You used your", type))
+      else
+          RemoveWeaponComponentFromPed(GetPlayerPed(-1), GetSelectedPedWeapon(PlayerPedId()), weapons[GetSelectedPedWeapon(PlayerPedId())][type])  
+          ESX.ShowNotification(string.format('%s %s', "You removed your ", type))
+      end
+  else
+      ESX.ShowNotification(string.format('%s %s %s', 'This ', type, " doesn't fit on your weapon.."))
+  end
 end)
 
-AddEventHandler('playerSpawned', function()
-  used = 0
+Citizen.CreateThread(function()
+while true do
+  Citizen.Wait(0)
+  if IsControlJustPressed(0, 172) then
+    if weapons[GetSelectedPedWeapon(PlayerPedId())] then
+      for k,v in pairs(weapons) do
+        if GetSelectedPedWeapon(PlayerPedId()) == k then
+          if HasPedGotWeaponComponent(GetPlayerPed(-1), GetSelectedPedWeapon(PlayerPedId()), v.celownik) then
+            TriggerServerEvent('pepe_celowniki:giveBack', 'celownik')
+            ESX.ShowNotification("You removed your Sight")
+            RemoveWeaponComponentFromPed(GetPlayerPed(-1), GetSelectedPedWeapon(PlayerPedId()), v.celownik)
+          
+          end
+        end
+      end
+    end
+  end
+end
 end)
