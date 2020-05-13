@@ -7,6 +7,16 @@ local weapons = {
     [GetHashKey('WEAPON_ADVANCEDRIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_SMALL')},
     [GetHashKey('WEAPON_SPECIALCARBINE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MEDIUM')},
     [GetHashKey('WEAPON_BULLPUPRIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_SMALL')},
+    [GetHashKey('WEAPON_SNSPISTOL_MK2')] = { celownik = GetHashKey('COMPONENT_AT_PI_RAIL_02')},
+    [GetHashKey('WEAPON_PISTOL_MK2')] = { celownik = GetHashKey('COMPONENT_AT_PI_RAIL')},
+    [GetHashKey('WEAPON_SMG_MK2')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_02_SMG_MK2')},
+    [GetHashKey('WEAPON_PUMPSHOTGUN_MK2')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_MK2')},   
+    [GetHashKey('WEAPON_BULLPUPRIFLE_MK2')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_02_MK2')},   
+    [GetHashKey('WEAPON_SPECIALCARBINE_MK2')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_MK2')},
+    [GetHashKey('WEAPON_ASSAULTRIFLE_MK2')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_MK2')}, 
+    [GetHashKey('WEAPON_CARBINERIFLE_MK2')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_MK2')}, 
+    [GetHashKey('WEAPON_COMBATMG')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MEDIUM')}, 
+    [GetHashKey('WEAPON_COMBATMG_MK2')] = { celownik = GetHashKey('COMPONENT_AT_SIGHTS')}, 
     [GetHashKey('WEAPON_COMBATPDW')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_SMALL')}
 }
 
