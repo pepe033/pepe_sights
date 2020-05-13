@@ -2,7 +2,7 @@ local ESX = nil
 local weapons = {
     [GetHashKey('WEAPON_SMG')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO_02')},
     [GetHashKey('WEAPON_ASSAULTSMG')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO')},
-    [GetHashKey('WEAPON_ASSAULTRIFLE')] = { celownik = GetHashKey('	COMPONENT_AT_SCOPE_MACRO')},
+    [GetHashKey('WEAPON_ASSAULTRIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MACRO')},
     [GetHashKey('WEAPON_CARBINERIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MEDIUM')},
     [GetHashKey('WEAPON_ADVANCEDRIFLE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_SMALL')},
     [GetHashKey('WEAPON_SPECIALCARBINE')] = { celownik = GetHashKey('COMPONENT_AT_SCOPE_MEDIUM')},
