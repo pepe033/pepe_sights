@@ -53,7 +53,7 @@ end)
 Citizen.CreateThread(function()
 while true do
   Citizen.Wait(0)
-  if IsControlJustPressed(0, 172) then
+  if IsControlJustPressed(0, 121) then
     if weapons[GetSelectedPedWeapon(PlayerPedId())] then
       for k,v in pairs(weapons) do
         if GetSelectedPedWeapon(PlayerPedId()) == k then
